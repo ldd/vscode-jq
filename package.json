@@ -1,0 +1,61 @@
+{
+  "name": "jq-preview",
+  "displayName": "jq Live View",
+  "description": "A sample JQ for virtual document",
+  "icon": "icon.png",
+  "version": "0.0.1",
+  "publisher": "ldd-vs-code",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ldd/vscode-jq"
+  },
+  "bugs": {
+    "url": "https://github.com/ldd/vscode-jq/issues"
+  },
+  "engines": {
+    "vscode": "^1.32.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:jq.showPreview"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "jq.showPreview",
+        "title": "jq"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "jq.showPreview",
+          "group": "navigation",
+          "when": "resourceLangId == json && resourceScheme != jq"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "jq.showPreview",
+          "when": "resourceLangId == json"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "lint": "tslint -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.32.0",
+    "prettier": "^1.19.1",
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.5.1"
+  }
+}
