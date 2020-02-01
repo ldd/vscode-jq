@@ -54,7 +54,7 @@
   "devDependencies": {
     "@types/vscode": "^1.32.0",
     "prettier": "^1.19.1",
-    "tslint": "^5.20.1",
+    "tslint": "^6.0.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.7.5"
   }
