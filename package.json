@@ -52,7 +52,7 @@
     "watch": "tsc -watch -p ./"
   },
   "devDependencies": {
-    "@types/vscode": "^1.45.1",
+    "@types/vscode": "^1.46.0",
     "prettier": "^1.19.1",
     "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0",
