@@ -33,6 +33,14 @@ An example, using modules:
 }
 ```
 
+## Version History
+
+- `v0.2.0` Deprecates `jqArgs`,`jqPrefix`, `jqPostfix` and replaces its functionality with `customCommand`
+
+- `v0.1.0` Adds configuration options `jqArgs`,`jqPrefix`, `jqPostfix` to run jq qith command line options
+
+- `v0.0.1` Initial Public Release
+
 ## Acknowledgments
 
 - [jq](https://stedolan.github.io/jq/)
