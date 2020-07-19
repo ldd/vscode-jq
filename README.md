@@ -42,11 +42,22 @@ Strict Mode may, in the future, include other checks that you will always be abl
 
 ## Version History
 
-- `v0.2.0` Deprecates `jqArgs`,`jqPrefix`, `jqPostfix` and replaces its functionality with `customCommand`
+- `v0.3.0`
 
-- `v0.1.0` Adds configuration options `jqArgs`,`jqPrefix`, `jqPostfix` to run jq qith command line options
+  - Add `strictMode` configuration option
+    (do not check for `json` language identifier)
+  - Fix escaping input box (no longer opens a live view)
 
-- `v0.0.1` Initial Public Release
+- `v0.2.0`
+
+  - Deprecate `jqArgs`,`jqPrefix`, `jqPostfix` and replaces its functionality with `customCommand`
+
+- `v0.1.0`
+
+  - Add configuration options `jqArgs`,`jqPrefix`, `jqPostfix` to run jq qith command line options
+
+- `v0.0.1`
+  - Initial Public Release
 
 ## Acknowledgments
 
