@@ -1,4 +1,4 @@
 {
   "extends": ["tslint:latest", "tslint-config-prettier"],
-  "rules": { "no-implicit-dependencies": [true, ["vscode"]] }
+  "rules": { "no-implicit-dependencies": [true, ["vscode"]], "curly": false }
 }

@@ -2,9 +2,7 @@ import { Uri, ViewColumn, window, workspace } from "vscode";
 import { DEFAULT_FILTER, spawnJq, stringifyCommand } from "../jq";
 
 const showPreview = (queries: WeakMap<Uri, any>) => async (uri: Uri) => {
-  if (!window.activeTextEditor) {
-    return;
-  }
+  if (!window.activeTextEditor) return;
 
   const { document } = window.activeTextEditor;
   const { fileName, languageId, uri: documentUri } = document;
@@ -15,11 +13,9 @@ const showPreview = (queries: WeakMap<Uri, any>) => async (uri: Uri) => {
   // strict mode requires our document languageId to be part of validLanguageIdentifiers
   // you can technically configurate this using fileAssociations, but there may be reasons for users to bypass this check
   // see https://github.com/ldd/vscode-jq/issues/17
-  if (strictMode && languageId !== "json") {
-    return;
-  }
+  if (strictMode && languageId !== "json") return;
 
-  let jqCommand;
+  let jqCommand: string | undefined;
   if (queries.has(uri)) {
     jqCommand = queries.get(uri);
   } else {
@@ -28,6 +24,11 @@ const showPreview = (queries: WeakMap<Uri, any>) => async (uri: Uri) => {
     });
     queries.set(documentUri, jqCommand);
   }
+
+  // showInputBox returns undefined if the input box was canceled
+  // exit early when that happens
+  if (jqCommand === undefined) return;
+
   const query = await spawnJq(jqCommand, fileName, config);
   if (query) {
     const name = stringifyCommand(jqCommand);
