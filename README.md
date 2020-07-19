@@ -54,6 +54,10 @@ Strict Mode may, in the future, include other checks that you will always be abl
 
 ## Version History
 
+- `v0.4.0`
+
+  - Add history of commands on a per-open-file basis
+
 - `v0.3.0`
 
   - Add `strictMode` configuration option
