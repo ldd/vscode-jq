@@ -13,11 +13,12 @@ Use the `jq` command to [select from a `.json` file](https://stedolan.github.io/
 
 This extension can be configured in User Settings or Workspace settings.
 
-| **Setting**     | **Description**                       |
-| --------------- | ------------------------------------- |
-| `customCommand` | See [_running jq with options_](#run) |
+| **Setting**     | **Type**  | **Description**                                                                      |
+| --------------- | --------- | ------------------------------------------------------------------------------------ |
+| `customCommand` | `string`  | See [_Running jq with command line options_](##Running-jq-with-command-line-options) |
+| `strictMode`    | `boolean` | See [_Strict Mode_](##strict-mode)                                                   |
 
-# Running jq with command line options
+## Running jq with command line options
 
 For your convenience, `customCommand` replaces the following variables:
 
@@ -32,6 +33,12 @@ An example, using modules:
   "jq.customCommand": "jq -L /my/modules/path 'include \"items\"; $$user_filter' $$file_path"
 }
 ```
+
+## Strict Mode
+
+By default, this extension only works with files with a `json` file identifier. Turn this off if you want to use it everywhere.
+
+Strict Mode may, in the future, include other checks that you will always be able to turn off.
 
 ## Version History
 
