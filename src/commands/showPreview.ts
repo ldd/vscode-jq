@@ -1,7 +1,41 @@
-import { Uri, ViewColumn, window, workspace } from "vscode";
-import { DEFAULT_FILTER, spawnJq, stringifyCommand } from "../jq";
+import { QuickPickItem, Uri, ViewColumn, window, workspace } from "vscode";
+import { spawnJq, stringifyCommand } from "../jq";
 
-const showPreview = (queries: WeakMap<Uri, any>) => async (uri: Uri) => {
+const initialChoices = ["."];
+const generateItems = () => initialChoices.map((label) => ({ label }));
+
+async function pickFilter(uri: Uri, histories: WeakMap<Uri, QuickPickItem[]>) {
+  try {
+    return await new Promise<string>((resolve, reject) => {
+      const input = window.createQuickPick<QuickPickItem>();
+      input.placeholder = "Type a new command or select one from your history";
+      input.items = histories.get(uri) ?? generateItems();
+
+      let label = "";
+      input.onDidChangeValue((newText) => (label = newText));
+
+      input.onDidAccept(() => {
+        // if the user selects a new command, add it to our histories map
+        // if the history map is empty, for whatever reason, we fill it too
+        const { selectedItems } = input;
+        const newHistory = [...input.items];
+        if (selectedItems.length < 1) newHistory.push({ label });
+        histories.set(uri, newHistory);
+
+        resolve(selectedItems[0]?.label ?? label);
+        input.dispose();
+      });
+      input.show();
+    });
+  } finally {
+    // we can probably reset history for this uri here if we absolutely do not want to keep it
+  }
+}
+
+const showPreview = (
+  queries: WeakMap<Uri, string>,
+  histories: WeakMap<Uri, QuickPickItem[]>
+) => async (uri: Uri) => {
   if (!window.activeTextEditor) return;
 
   const { document } = window.activeTextEditor;
@@ -19,14 +53,12 @@ const showPreview = (queries: WeakMap<Uri, any>) => async (uri: Uri) => {
   if (queries.has(uri)) {
     jqCommand = queries.get(uri);
   } else {
-    jqCommand = await window.showInputBox({
-      placeHolder: DEFAULT_FILTER,
-    });
+    // better QuickPick with history suggestion inspired by this issue: https://github.com/microsoft/vscode/issues/426
+    jqCommand = await pickFilter(documentUri, histories);
     queries.set(documentUri, jqCommand);
   }
 
-  // showInputBox returns undefined if the input box was canceled
-  // exit early when that happens
+  // jqCommand could be undefined for a number of reasons, we exit early to avoid trouble
   if (jqCommand === undefined) return;
 
   const query = await spawnJq(jqCommand, fileName, config);
