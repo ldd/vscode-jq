@@ -9,6 +9,10 @@ Use the `jq` command to [select from a `.json` file](https://stedolan.github.io/
 
 ![select-command-demo](select-command.gif)
 
+This extension will keep a history of the commands that you run
+
+![command-history-demo](command-history-demo.gif)
+
 # Configuration
 
 This extension can be configured in User Settings or Workspace settings.
@@ -36,7 +40,15 @@ An example, using modules:
 
 ## Strict Mode
 
-By default, this extension only works with files with a `json` file identifier. Turn this off if you want to use it everywhere.
+By default, this extension only works with files with a `json` file identifier. Turn this off if you want to use it with any file type.
+
+Alternatively, you can modify VSCode's `files.associations` in your User Settings:
+
+```json
+"files.associations": {
+    "*.log.a.txt": "json"
+},
+```
 
 Strict Mode may, in the future, include other checks that you will always be able to turn off.
 
