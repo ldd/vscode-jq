@@ -3,18 +3,23 @@ import { DEFAULT_FILTER, spawnJq, stringifyCommand } from "../jq";
 
 const showPreview = (queries: WeakMap<Uri, any>) => async (uri: Uri) => {
   if (!window.activeTextEditor) {
-    return; // no editor
-  }
-  const {
-    document: { fileName, languageId, uri: documentUri },
-  } = window.activeTextEditor;
-  let jqCommand;
-
-  if (languageId !== "json") {
     return;
-  } // not a json file
-  const config = workspace.getConfiguration("jq");
+  }
 
+  const { document } = window.activeTextEditor;
+  const { fileName, languageId, uri: documentUri } = document;
+
+  const config = workspace.getConfiguration("jq");
+  const { strictMode, validLanguageIdentifiers = [] } = config;
+
+  // strict mode requires our document languageId to be part of validLanguageIdentifiers
+  // you can technically configurate this using fileAssociations, but there may be reasons for users to bypass this check
+  // see https://github.com/ldd/vscode-jq/issues/17
+  if (strictMode && languageId !== "json") {
+    return;
+  }
+
+  let jqCommand;
   if (queries.has(uri)) {
     jqCommand = queries.get(uri);
   } else {

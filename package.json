@@ -30,6 +30,11 @@
           "type": "string",
           "default": "jq '$$user_filter' $$file_path",
           "markdownDescription": "Custom command that supports jq command line options.\n\n `$$user_filter` is replaced with the filter you typed\n\n `$$file_path` is replaced with the current file path"
+        },
+        "jq.strictMode": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "By default, this extension only works with files with a `json` file identifier. Turn this off if you want to use it everywhere."
         }
       }
     },
@@ -44,13 +49,13 @@
         {
           "command": "jq.showPreview",
           "group": "navigation",
-          "when": "resourceLangId == json && resourceScheme != jq"
+          "when": "resourceScheme != jq && !config.jq.strictMode || resourceScheme != jq && resourceLangId == json"
         }
       ],
       "commandPalette": [
         {
           "command": "jq.showPreview",
-          "when": "resourceLangId == json"
+          "when": "resourceScheme != jq && !config.jq.strictMode || resourceScheme != jq && resourceLangId == json"
         }
       ]
     }
