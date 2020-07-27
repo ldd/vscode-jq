@@ -25,6 +25,8 @@ export function activate({ subscriptions }: ExtensionContext) {
   );
 
   workspace.onDidSaveTextDocument((document) => {
+    // only execute command on known documents
+    if (!queries.has(document.uri)) return;
     commands.executeCommand("jq.showPreview", document.uri);
   });
   workspace.onDidCloseTextDocument((document) => {
