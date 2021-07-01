@@ -3,7 +3,7 @@
   "displayName": "jq Live View",
   "description": "A sample JQ for virtual document",
   "icon": "icon.png",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "publisher": "ldd-vs-code",
   "repository": {
     "type": "git",

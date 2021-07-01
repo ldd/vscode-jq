@@ -54,6 +54,10 @@ Strict Mode may, in the future, include other checks that you will always be abl
 
 ## Version History
 
+- `v0.4.2`
+
+  - Fix #44 (Allow paths with spaces)
+
 - `v0.4.1`
 
   - Fix #18 (file save issue)
