@@ -28,7 +28,7 @@
       "properties": {
         "jq.customCommand": {
           "type": "string",
-          "default": "jq '$$user_filter' $$file_path",
+          "default": "jq '$$user_filter' '$$file_path'",
           "markdownDescription": "Custom command that supports jq command line options.\n\n `$$user_filter` is replaced with the filter you typed\n\n `$$file_path` is replaced with the current file path"
         },
         "jq.strictMode": {
